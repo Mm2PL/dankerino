@@ -27,7 +27,6 @@
 #include "widgets/dialogs/QualityPopup.hpp"
 #include "widgets/dialogs/SelectChannelDialog.hpp"
 #include "widgets/dialogs/SelectChannelFiltersDialog.hpp"
-#include "widgets/dialogs/StreamSettingsDialog.hpp"
 #include "widgets/dialogs/UserInfoPopup.hpp"
 #include "widgets/helper/ChannelView.hpp"
 #include "widgets/helper/DebugPopup.hpp"
@@ -1259,13 +1258,6 @@ void Split::openModViewInBrowser()
 void Split::openInStreamlink()
 {
     this->openChannelInStreamlink(this->getChannel()->getName());
-}
-
-void Split::openStreamSettingsEditor()
-{
-    auto dialog = new StreamSettingsDialog(this->getChannel());
-    dialog->setAttribute(Qt::WA_DeleteOnClose, true);
-    dialog->exec();
 }
 
 void Split::openWithCustomScheme()

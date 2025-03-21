@@ -191,7 +191,6 @@ public Q_SLOTS:
     void openWhispersInBrowser();
     void openBrowserPlayer();
     void openInStreamlink();
-    void openStreamSettingsEditor();
     void openWithCustomScheme();
     void setFiltersDialog();
     void showSearch(bool singleChannel);

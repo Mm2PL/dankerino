@@ -638,8 +638,6 @@ set(SOURCE_FILES
         widgets/dialogs/switcher/QuickSwitcherPopup.hpp
         widgets/dialogs/switcher/SwitchSplitItem.cpp
         widgets/dialogs/switcher/SwitchSplitItem.hpp
-        widgets/dialogs/StreamSettingsDialog.cpp
-        widgets/dialogs/StreamSettingsDialog.hpp
 
         widgets/helper/color/AlphaSlider.cpp
         widgets/helper/color/AlphaSlider.hpp

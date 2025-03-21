@@ -15,7 +15,5 @@ inline const QString OPEN_IN_CUSTOM_PLAYER =
 inline const QString DONT_OPEN = QStringLiteral("Don't open");
 inline const QString OPEN_WHISPERS_IN_BROWSER =
     QStringLiteral("Open whispers in browser");
-inline const QString STREAM_SETTINGS_EDITOR =
-    QStringLiteral("Edit stream settings");
 
 }  // namespace chatterino

@@ -468,15 +468,16 @@ void IrcMessageHandler::handleClearChatMessage(Communi::IrcMessage *message)
     {
         chan->disableAllMessages();
         chan->addOrReplaceClearChat(std::move(clearChat.message), time);
-        return;
+    }
+    else
+    {
+        chan->addOrReplaceTimeout(std::move(clearChat.message), time);
     }
 
-    chan->addOrReplaceTimeout(std::move(clearChat.message), time);
-
-    // refresh all
-    getApp()->getWindows()->repaintVisibleChatWidgets(chan.get());
     if (getSettings()->hideModerated)
     {
+        // XXX: This is expensive. We could use a layout request if the layout
+        //      would store the previous message flags.
         getApp()->getWindows()->forceLayoutChannelViews();
     }
 }
@@ -511,7 +512,7 @@ void IrcMessageHandler::handleClearMessageMessage(Communi::IrcMessage *message)
 
     QString targetID = tags.value("target-msg-id").toString();
 
-    auto msg = chan->findMessage(targetID);
+    auto msg = chan->findMessageByID(targetID);
     if (msg == nullptr)
     {
         return;
@@ -522,6 +523,13 @@ void IrcMessageHandler::handleClearMessageMessage(Communi::IrcMessage *message)
     {
         chan->addMessage(MessageBuilder::makeDeletionMessageFromIRC(msg),
                          MessageContext::Original);
+    }
+
+    if (getSettings()->hideModerated && !tags.contains("historical"))
+    {
+        // XXX: This is expensive. We could use a layout request if the layout
+        //      would store the previous message flags.
+        getApp()->getWindows()->forceLayoutChannelViews();
     }
 }
 
@@ -1002,7 +1010,6 @@ void IrcMessageHandler::addMessage(Communi::IrcMessage *message,
                                      "callback since reward is not known:"
                                   << rewardId;
         chan->addQueuedRedemption(rewardId, originalContent, message);
-        return;
     }
     args.channelPointRewardId = rewardId;
 
@@ -1086,7 +1093,13 @@ void IrcMessageHandler::addMessage(Communi::IrcMessage *message,
         if (isSub)
         {
             msg->flags.set(MessageFlag::Subscription);
-            msg->flags.unset(MessageFlag::Highlighted);
+
+            if (tags.value("msg-id") != "announcement")
+            {
+                // Announcements are currently tagged as subscriptions,
+                // but we want them to be able to show up in mentions
+                msg->flags.unset(MessageFlag::Highlighted);
+            }
         }
 
         sink.applySimilarityFilters(msg);

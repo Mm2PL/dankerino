@@ -302,6 +302,7 @@ ChannelView::ChannelView(QWidget *parent, Split *split, Context context,
 ChannelView::ChannelView(InternalCtor /*tag*/, QWidget *parent, Split *split,
                          Context context, size_t messagesLimit)
     : BaseWidget(parent)
+    , channel_(Channel::getEmpty())
     , split_(split)
     , scrollBar_(new Scrollbar(messagesLimit, this))
     , highlightAnimation_(this)
@@ -906,8 +907,10 @@ LimitedQueueSnapshot<MessageLayoutPtr> &ChannelView::getMessagesSnapshot()
     return this->snapshot_;
 }
 
-ChannelPtr ChannelView::channel()
+ChannelPtr ChannelView::channel() const
 {
+    assert(this->channel_ != nullptr);
+
     return this->channel_;
 }
 
@@ -2574,6 +2577,18 @@ void ChannelView::addMessageContextMenuItems(QMenu *menu,
         }
     }
 
+    auto *twitchChannel =
+        dynamic_cast<TwitchChannel *>(this->underlyingChannel_.get());
+    if (!layout->getMessage()->id.isEmpty() && twitchChannel &&
+        twitchChannel->hasModRights())
+    {
+        menu->addAction(
+            "&Delete message", [twitchChannel, id = layout->getMessage()->id] {
+                twitchChannel->deleteMessagesAs(
+                    id, getApp()->getAccounts()->twitch.getCurrent().get());
+            });
+    }
+
     bool isSearch = this->context_ == Context::Search;
     bool isReplyOrUserCard = (this->context_ == Context::ReplyThread ||
                               this->context_ == Context::UserCard) &&
@@ -3186,10 +3201,7 @@ bool ChannelView::canReplyToMessages() const
         return false;
     }
 
-    if (this->channel_ == nullptr)
-    {
-        return false;
-    }
+    assert(this->channel_ != nullptr);
 
     if (!this->channel_->isTwitchChannel())
     {

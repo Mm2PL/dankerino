@@ -251,7 +251,7 @@ MessagePaintResult MessageLayout::paint(const MessagePaintContext &ctx)
     }
 
     if (this->message_->flags.has(MessageFlag::RecentMessage) &&
-        getSettings()->grayOutRecents)
+        ctx.preferences.fadeMessageHistory)
     {
         ctx.painter.fillRect(0, ctx.y, pixmap->width(), pixmap->height(),
                              ctx.messageColors.disabled);

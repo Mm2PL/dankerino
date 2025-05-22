@@ -190,7 +190,6 @@ public:
         "/appearance/messages/collapseMessagesMinLines", 0};
     BoolSetting alternateMessages = {
         "/appearance/messages/alternateMessageBackground", false};
-    BoolSetting grayOutRecents = {"/appearance/messages/gratOutRecents", true};
     FloatSetting boldScale = {"/appearance/boldScale", 63};
     BoolSetting showTabCloseButton = {"/appearance/showTabCloseButton", true};
     BoolSetting showTabLive = {"/appearance/showTabLiveButton", true};
@@ -221,6 +220,8 @@ public:
     // false};
     BoolSetting legacyDankerinoRemoveSpacesBetweenEmotes_ = {
         "/appearance/removeSpacesBetweenEmotes", false};
+    BoolSetting legacyDankerinoGrayOutRecents = {
+        "/appearance/messages/gratOutRecents", true};
 
     FloatSetting overlayScaleFactor = {"/appearance/overlay/scaleFactor", 1};
     IntSetting overlayBackgroundOpacity = {

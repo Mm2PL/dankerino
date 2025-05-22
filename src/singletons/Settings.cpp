@@ -200,6 +200,11 @@ void Settings::moveLegacyDankerinoSettings_()
         this->legacyDankerinoRemoveSpacesBetweenEmotes_ = false;
         this->removeSpacesBetweenEmotes = true;
     }
+    if (this->legacyDankerinoGrayOutRecents)
+    {
+        this->fadeMessageHistory = true;
+        this->legacyDankerinoGrayOutRecents = false;
+    }
     if (!this->nonceFuckeryMigrated_)
     {
         this->nonceFuckeryEnabled = this->abnormalNonceDetection.getValue() ||

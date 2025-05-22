@@ -48,7 +48,8 @@ void DankerinoPage::initLayout(GeneralPageView &layout)
     layout.addTitle("Appearance");
     layout.addCheckbox("Show placeholder in text input box",
                        s.showTextInputPlaceholder);
-    layout.addCheckbox("Gray-out recent messages", s.grayOutRecents);
+    layout.addDescription("Gray-out recent messages was upstreamed as \"Reduce "
+                          "opacity of message history\"");
     layout.addTitle("Behavior");
     layout.addCheckbox("Lowercase tab-completed usernames",
                        s.lowercaseUsernames);

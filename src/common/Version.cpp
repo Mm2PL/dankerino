@@ -42,6 +42,11 @@ Version::Version()
 
     this->generateBuildString();
     this->generateRunningString();
+
+#ifdef Q_OS_WIN
+    // keep in sync with .CI/chatterino-installer.iss
+    this->appUserModelID_ = L"ChatterinoTeam.Chatterino";
+#endif
 }
 
 const Version &Version::instance()
@@ -174,5 +179,12 @@ void Version::generateRunningString()
 
     this->runningString_ = s;
 }
+
+#ifdef Q_OS_WIN
+const std::wstring &Version::appUserModelID() const
+{
+    return this->appUserModelID_;
+}
+#endif
 
 }  // namespace chatterino

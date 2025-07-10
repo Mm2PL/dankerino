@@ -66,8 +66,8 @@ declare namespace c2 {
         is_mod(): boolean;
         is_vip(): boolean;
 
-        static by_name(name: string): null | Channel;
-        static by_twitch_id(id: string): null | Channel;
+        static by_name(this: void, name: string): null | Channel;
+        static by_twitch_id(this: void, id: string): null | Channel;
     }
 
     enum HTTPMethod {
@@ -95,10 +95,8 @@ declare namespace c2 {
         set_header(name: string, value: string): void;
 
         execute(): void;
-    }
 
-    namespace HTTPRequest {
-        function create(method: HTTPMethod, url: string): HTTPRequest;
+        static create(this: void, method: HTTPMethod, url: string): HTTPRequest;
     }
 
     function log(level: LogLevel, ...data: any[]): void;
@@ -135,6 +133,7 @@ declare namespace c2 {
         close(): void;
         send_text(data: string): void;
         send_binary(data: string): void;
+        on_open: null | (() => void);
         on_close: null | (() => void);
         on_text: null | ((data: string) => void);
         on_binary: null | ((data: string) => void);
@@ -145,6 +144,7 @@ declare namespace c2 {
             url: string,
             options?: {
                 headers?: Record<string, string>;
+                on_open?: () => void;
                 on_close?: () => void;
                 on_text?: (data: string) => void;
                 on_binary?: (data: string) => void;

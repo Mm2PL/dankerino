@@ -2,12 +2,14 @@
 
 #include "Application.hpp"
 #include "common/Channel.hpp"
+#include "common/StreamerModeSetting.hpp"
 #include "controllers/filters/lang/FilterParser.hpp"
 #include "messages/Message.hpp"
 #include "messages/MessageFlag.hpp"
 #include "providers/twitch/TwitchBadge.hpp"
 #include "providers/twitch/TwitchChannel.hpp"
 #include "providers/twitch/TwitchIrcServer.hpp"
+#include "util/QMagicEnum.hpp"
 
 namespace chatterino::filters {
 
@@ -47,6 +49,7 @@ const QMap<QString, Type> MESSAGE_TYPING_CONTEXT{
 
     // dankerino
     {"flags.webchat_detected", Type::Bool},
+    {"dankerino.client_detection", Type::String},
 };
 
 ContextMap buildContextMap(const MessagePtr &m, chatterino::Channel *channel)
@@ -161,7 +164,10 @@ ContextMap buildContextMap(const MessagePtr &m, chatterino::Channel *channel)
         {"message.content", m->messageText},
         {"message.length", m->messageText.length()},
 
-        {"flags.webchat_detected", m->flags.has(MessageFlag::WebchatDetected)},
+        {"flags.webchat_detected",
+         m->clientDetection == Message::ClientDetectionStatus::Webchat},
+        {"dankerino.client_detection",
+         qmagicenum::enumName(m->clientDetection).toString()},
     };
     {
         auto *tc = dynamic_cast<TwitchChannel *>(channel);

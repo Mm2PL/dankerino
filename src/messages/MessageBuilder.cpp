@@ -83,21 +83,64 @@ const QSet<QString> zeroWidthEmotes{
     "ReinDeer", "CandyCane", "cvMask",   "cvHazmat",
 };
 
-bool isAbnormalNonce(const QString &nonce)
+Message::ClientDetectionStatus performClientDetection(const QString &nonce)
 {
-    // matches /[0-9a-f]{32}/
-    if (nonce.size() != 32)
+    using enum Message::ClientDetectionStatus;
+    if (nonce.size() == 32)
     {
-        return true;
+        // matches /[0-9a-f]{32}/
+        bool webchat = std::ranges::all_of(nonce, [](const QChar &c) {
+            return ('0' <= c && c <= '9') || ('a' <= c && c <= 'f');
+        });
+        return webchat ? Webchat : Unknown;
     }
-    for (const auto letter : nonce)
+    // UUID
+    if (nonce.size() == 36)
     {
-        if (('0' > letter || letter > '9') && ('a' > letter || letter > 'f'))
+        if (nonce.at(8) != '-' || nonce.at(13) != '-' || nonce.at(18) != '-' ||
+            nonce.at(23) != '-' || nonce.at(14) != '4')
         {
-            return true;
+            return Abnormal;
         }
+        bool upper = false;
+        bool lowerSpotted = false;
+
+        for (const QChar &c : nonce)
+        {
+            if ('A' <= c && c <= 'F')
+            {
+                upper = true;
+                // no case mixing
+                if (lowerSpotted)
+                {
+                    return Abnormal;
+                }
+            }
+            else if ('a' <= c && c <= 'f')
+            {
+                if (upper)
+                {
+                    return Abnormal;
+                }
+                lowerSpotted = true;
+            }
+            else if (!('0' <= c && c <= '9') && c != '-')
+            {
+                return Abnormal;
+            }
+        }
+        if (upper)
+        {
+            return IOS;
+        }
+        if (lowerSpotted)
+        {
+            return Android;
+        }
+        // numbers only?
+        return Abnormal;
     }
-    return false;
+    return Abnormal;
 }
 
 struct HypeChatPaidLevel {
@@ -1627,8 +1670,9 @@ std::pair<MessagePtrMut, HighlightAlert> MessageBuilder::makeIrcMessage(
     if (tags.contains("client-nonce") && getSettings()->nonceFuckeryEnabled &&
         !isBridged)
     {
-        auto isAbnormal = isAbnormalNonce(tags["client-nonce"].toString());
-        if (isAbnormal && getSettings()->abnormalNonceDetection)
+        auto status = performClientDetection(tags["client-nonce"].toString());
+        if (status == Message::ClientDetectionStatus::Abnormal &&
+            getSettings()->abnormalNonceDetection)
         {
             builder.emplace<TimestampElement>();
             builder.emplace<TextElement>(
@@ -1640,10 +1684,7 @@ std::pair<MessagePtrMut, HighlightAlert> MessageBuilder::makeIrcMessage(
             builder.emplace<LinebreakElement>(
                 MessageElementFlag::ChannelPointReward);
         }
-        else if (!isAbnormal)
-        {
-            builder->flags.set(MessageFlag::WebchatDetected);
-        }
+        builder.message().clientDetection = status;
     }
 
     builder.appendChannelName(channel);

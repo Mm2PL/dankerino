@@ -71,7 +71,6 @@ enum class MessageFlag : std::int64_t {
     ///  - message was deleted via chat clear user messages (IRC: CLEARCHAT(user), EVENTSUB: channel.chat.clear_user_messages)
     /// Note: If this message is inside a reply thread, the root must not have the flag either.
     InvalidReplyTarget = (1LL << 42),
-    WebchatDetected = (1LL << 43),
 };
 using MessageFlags = FlagsEnum<MessageFlag>;
 

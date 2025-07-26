@@ -149,6 +149,7 @@ void Button::enterEvent(QEvent * /*event*/)
     {
         this->mouseOver_ = true;
         this->update();
+        this->mouseOverUpdated();
     }
 }
 
@@ -158,6 +159,7 @@ void Button::leaveEvent(QEvent * /*event*/)
     {
         this->mouseOver_ = false;
         this->update();
+        this->mouseOverUpdated();
     }
 }
 

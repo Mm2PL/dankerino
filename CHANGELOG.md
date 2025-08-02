@@ -1,5 +1,9 @@
 # Changelog
 
+## Dankerino
+
+- Minor: Replace `emotes.awoo.nl` with `chatvau.lt`. (#147)
+
 ## Unversioned
 
 ## 2.5.4-beta.1

@@ -85,14 +85,14 @@ const QSet<QString> zeroWidthEmotes{
 
 Message::ClientDetectionStatus performClientDetection(const QString &nonce)
 {
-    using enum Message::ClientDetectionStatus;
     if (nonce.size() == 32)
     {
         // matches /[0-9a-f]{32}/
         bool webchat = std::ranges::all_of(nonce, [](const QChar &c) {
             return ('0' <= c && c <= '9') || ('a' <= c && c <= 'f');
         });
-        return webchat ? Webchat : Unknown;
+        return webchat ? Message::ClientDetectionStatus::Webchat
+                       : Message::ClientDetectionStatus::Unknown;
     }
     // UUID
     if (nonce.size() == 36)
@@ -100,7 +100,7 @@ Message::ClientDetectionStatus performClientDetection(const QString &nonce)
         if (nonce.at(8) != '-' || nonce.at(13) != '-' || nonce.at(18) != '-' ||
             nonce.at(23) != '-' || nonce.at(14) != '4')
         {
-            return Abnormal;
+            return Message::ClientDetectionStatus::Abnormal;
         }
         bool upper = false;
         bool lowerSpotted = false;
@@ -113,34 +113,34 @@ Message::ClientDetectionStatus performClientDetection(const QString &nonce)
                 // no case mixing
                 if (lowerSpotted)
                 {
-                    return Abnormal;
+                    return Message::ClientDetectionStatus::Abnormal;
                 }
             }
             else if ('a' <= c && c <= 'f')
             {
                 if (upper)
                 {
-                    return Abnormal;
+                    return Message::ClientDetectionStatus::Abnormal;
                 }
                 lowerSpotted = true;
             }
             else if (!('0' <= c && c <= '9') && c != '-')
             {
-                return Abnormal;
+                return Message::ClientDetectionStatus::Abnormal;
             }
         }
         if (upper)
         {
-            return IOS;
+            return Message::ClientDetectionStatus::IOS;
         }
         if (lowerSpotted)
         {
-            return Android;
+            return Message::ClientDetectionStatus::Android;
         }
         // numbers only?
-        return Abnormal;
+        return Message::ClientDetectionStatus::Abnormal;
     }
-    return Abnormal;
+    return Message::ClientDetectionStatus::Abnormal;
 }
 
 struct HypeChatPaidLevel {

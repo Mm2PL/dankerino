@@ -607,9 +607,9 @@ void ChannelView::themeChangedEvent()
     BaseWidget::themeChangedEvent();
 
     this->setupHighlightAnimationColors();
-    this->queueLayout();
     this->messageColors_.applyTheme(getTheme(), this->isOverlay_,
                                     getSettings()->overlayBackgroundOpacity);
+    this->invalidateBuffers();
 }
 
 void ChannelView::updateColorTheme()
@@ -662,6 +662,7 @@ void ChannelView::invalidateBuffers()
 {
     this->bufferInvalidationQueued_ = true;
     this->queueLayout();
+    this->update();
 }
 
 void ChannelView::queueLayout()
@@ -2134,10 +2135,9 @@ void ChannelView::mouseMoveEvent(QMouseEvent *event)
                     element->getTooltip(), getTooltipScale(scale)));
             }
         }
-        else
+        else if (auto *linkElement = dynamic_cast<LinkElement *>(element))
         {
             auto thumbnailSize = getSettings()->thumbnailSize;
-            auto *linkElement = dynamic_cast<LinkElement *>(element);
             if (linkElement)
             {
                 if (linkElement->linkInfo()->isPending())
@@ -2147,6 +2147,13 @@ void ChannelView::mouseMoveEvent(QMouseEvent *event)
                 }
                 this->setLinkInfoTooltip(linkElement->linkInfo());
             }
+        }
+        else
+        {
+            this->tooltipWidget_->setOne(TooltipEntry{
+                .image = nullptr,
+                .text = element->getTooltip(),
+            });
         }
 
         this->tooltipWidget_->moveTo(

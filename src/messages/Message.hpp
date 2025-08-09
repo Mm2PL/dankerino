@@ -98,6 +98,16 @@ struct Message {
         Abnormal,
     };
     uint32_t count = 1;
+
+    /// Can this message be modified?
+    ///
+    /// Our rendering and layout code expects messages to be mostly immutable.
+    /// Thus, when this flag is set, this message may not be modified.
+    /// Only flags and this member can be modified safely (from the GUI thread).
+    /// This is only used for plugins right now. This value is only ever set to
+    /// true.
+    mutable bool frozen = false;
+
     std::vector<std::unique_ptr<MessageElement>> elements;
     ClientDetectionStatus clientDetection = ClientDetectionStatus::Unknown;
 
@@ -106,6 +116,11 @@ struct Message {
     std::shared_ptr<ChannelPointReward> reward = nullptr;
 
     QJsonObject toJson() const;
+
+    void freeze() const
+    {
+        this->frozen = true;
+    }
 };
 
 }  // namespace chatterino

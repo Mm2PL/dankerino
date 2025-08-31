@@ -451,22 +451,21 @@ void MessageLayout::updateBuffer(QPixmap *buffer,
     {
         switch (this->message_->clientDetection)
         {
-            using enum Message::ClientDetectionStatus;
-            case Webchat:
+            case Message::ClientDetectionStatus::Webchat:
                 backgroundColor = blendColors(
                     backgroundColor, QColor(getSettings()->webchatColor));
                 break;
-            case Android:
+            case Message::ClientDetectionStatus::Android:
                 backgroundColor = blendColors(
                     backgroundColor, QColor(getSettings()->androidColor));
                 break;
-            case IOS:
+            case Message::ClientDetectionStatus::IOS:
                 backgroundColor = blendColors(backgroundColor,
                                               QColor(getSettings()->iosColor));
                 break;
 
-            case Unknown:
-            case Abnormal:
+            case Message::ClientDetectionStatus::Unknown:
+            case Message::ClientDetectionStatus::Abnormal:
                 break;
         }
     }

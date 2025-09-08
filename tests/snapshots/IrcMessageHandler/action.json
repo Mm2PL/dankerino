@@ -131,6 +131,7 @@
                 },
                 {
                     "emote": {
+                        "homePage": "https://chatvau.lt/emote/twitch/25",
                         "images": {
                             "1x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0",
                             "2x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/2.0",

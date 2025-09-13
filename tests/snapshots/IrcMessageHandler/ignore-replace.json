@@ -81,6 +81,7 @@
                 },
                 {
                     "emote": {
+                        "homePage": "https://chatvau.lt/emote/twitch/305954156",
                         "images": {
                             "1x": "https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/dark/1.0",
                             "2x": "https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/dark/2.0",
@@ -115,6 +116,7 @@
                 },
                 {
                     "emote": {
+                        "homePage": "https://chatvau.lt/emote/twitch/25",
                         "images": {
                             "1x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0",
                             "2x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/2.0",
@@ -149,6 +151,7 @@
                 },
                 {
                     "emote": {
+                        "homePage": "https://chatvau.lt/emote/twitch/1902",
                         "images": {
                             "1x": "https://static-cdn.jtvnw.net/emoticons/v2/1902/default/dark/1.0",
                             "2x": "https://static-cdn.jtvnw.net/emoticons/v2/1902/default/dark/2.0",
@@ -189,6 +192,7 @@
                 },
                 {
                     "emote": {
+                        "homePage": "https://chatvau.lt/emote/twitch/25",
                         "images": {
                             "1x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0",
                             "2x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/2.0",

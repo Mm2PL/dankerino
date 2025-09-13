@@ -132,6 +132,7 @@
                 {
                     "emote": {
                         "images": {
+                            "homePage": "https://chatvau.lt/emote/twitch/25",
                             "1x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0",
                             "2x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/2.0",
                             "3x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/3.0"
@@ -168,6 +169,7 @@
                 {
                     "emote": {
                         "images": {
+                            "homePage": "https://chatvau.lt/emote/twitch/25",
                             "1x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0",
                             "2x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/2.0",
                             "3x": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/3.0"

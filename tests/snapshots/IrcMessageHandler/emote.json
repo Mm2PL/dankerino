@@ -2,8 +2,7 @@
     "input": "@badge-info=;badges=no_audio/1;color=#DAA520;display-name=Mm2PL;emote-only=1;emotes=1902:0-4;first-msg=0;flags=;id=9b1c3cb9-7817-47ea-add1-f9d4a9b4f846;mod=0;returning-chatter=0;room-id=11148817;subscriber=0;tmi-sent-ts=1662201095690;turbo=0;user-id=117691339;user-type= :mm2pl!mm2pl@mm2pl.tmi.twitch.tv PRIVMSG #pajlada :Keepo",
     "output": [
         {
-            "badgeInfos": {
-            },
+            "badgeInfos": {},
             "badges": [
                 "no_audio"
             ],
@@ -99,6 +98,7 @@
                 },
                 {
                     "emote": {
+                        "homePage": "https://chatvau.lt/emote/twitch/1902",
                         "images": {
                             "1x": "https://static-cdn.jtvnw.net/emoticons/v2/1902/default/dark/1.0",
                             "2x": "https://static-cdn.jtvnw.net/emoticons/v2/1902/default/dark/2.0",

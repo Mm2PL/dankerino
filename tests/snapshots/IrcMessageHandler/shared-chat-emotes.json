@@ -108,7 +108,7 @@
                         "name": "Kappa",
                         "tooltip": "Kappa<br>Twitch Emote"
                     },
-                    "flags": "TwitchEmoteImage|TwitchEmoteText",
+                    "flags": "EmoteImage|EmoteText",
                     "link": {
                         "type": "None",
                         "value": ""
@@ -142,7 +142,7 @@
                         "name": "BTTVGlobal",
                         "tooltip": "BTTVGlobal Tooltip"
                     },
-                    "flags": "BttvEmoteImage|BttvEmoteText",
+                    "flags": "EmoteImage|EmoteText",
                     "link": {
                         "type": "None",
                         "value": ""
@@ -177,7 +177,7 @@
                         "name": "7TVGlobal",
                         "tooltip": "7TVGlobal Tooltip"
                     },
-                    "flags": "SevenTVEmoteImage|SevenTVEmoteText",
+                    "flags": "EmoteImage|EmoteText",
                     "link": {
                         "type": "None",
                         "value": ""
@@ -211,7 +211,7 @@
                         "name": "FFZGlobal",
                         "tooltip": "FFZGlobal Tooltip"
                     },
-                    "flags": "FfzEmoteImage|FfzEmoteText",
+                    "flags": "EmoteImage|EmoteText",
                     "link": {
                         "type": "None",
                         "value": ""
@@ -230,7 +230,7 @@
                         "name": "BTTVTwitchDev",
                         "tooltip": "BTTVTwitchDev Tooltip"
                     },
-                    "flags": "BttvEmoteImage|BttvEmoteText",
+                    "flags": "EmoteImage|EmoteText",
                     "link": {
                         "type": "None",
                         "value": ""
@@ -250,7 +250,7 @@
                         "name": "7TVTwitchDev",
                         "tooltip": "7TVTwitchDev Tooltip"
                     },
-                    "flags": "SevenTVEmoteImage|SevenTVEmoteText",
+                    "flags": "EmoteImage|EmoteText",
                     "link": {
                         "type": "None",
                         "value": ""
@@ -269,7 +269,7 @@
                         "name": "FFZTwitchDev",
                         "tooltip": "FFZTwitchDev Tooltip"
                     },
-                    "flags": "FfzEmoteImage|FfzEmoteText",
+                    "flags": "EmoteImage|EmoteText",
                     "link": {
                         "type": "None",
                         "value": ""

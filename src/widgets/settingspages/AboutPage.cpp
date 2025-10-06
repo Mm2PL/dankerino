@@ -168,7 +168,11 @@ AboutPage::AboutPage()
             auto l = contributors.emplace<FlowLayout>();
 
             QFile contributorsFile(":/contributors.txt");
-            contributorsFile.open(QFile::ReadOnly);
+            if (!contributorsFile.open(QFile::ReadOnly))
+            {
+                assert(false && "Resources not loaded");
+                qCWarning(chatterinoWidget) << "Resources not loaded";
+            }
 
             QTextStream stream(&contributorsFile);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -296,7 +300,12 @@ void AboutPage::addLicense(QFormLayout *form, const QString &name,
             auto *edit = new QTextEdit;
 
             QFile file(licenseLink);
-            file.open(QIODevice::ReadOnly);
+            if (!file.open(QIODevice::ReadOnly))
+            {
+                assert(false && "License not found");
+                qCWarning(chatterinoWidget)
+                    << "License not found" << licenseLink;
+            }
             edit->setText(file.readAll());
             edit->setReadOnly(true);
 

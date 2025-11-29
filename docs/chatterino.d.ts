@@ -255,6 +255,7 @@ declare namespace c2 {
         JumpToChannel,
         CopyToClipboard,
         JumpToMessage,
+        InsertText,
     }
 
     enum MessageFlag {
@@ -375,4 +376,24 @@ declare namespace c2 {
         Original,
         Repost,
     }
+}
+
+declare module "chatterino.json" {
+    class _Dummy {}
+
+    function parse(
+        text: string,
+        opts?: { allow_comments?: boolean; allow_trailing_commas?: boolean }
+    ): any;
+    function stringify(
+        item: any,
+        opts?: { pretty?: boolean; indent_char?: string; indent_size?: number }
+    ): string;
+
+    let exports: {
+        null: _Dummy;
+        parse: typeof parse;
+        stringify: typeof stringify;
+    };
+    export = exports;
 }

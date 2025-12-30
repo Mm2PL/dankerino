@@ -15,7 +15,7 @@ namespace chatterino {
 Button::Button(BaseWidget *parent)
     : BaseWidget(parent)
 {
-    connect(&effectTimer_, &QTimer::timeout, this,
+    connect(&this->effectTimer_, &QTimer::timeout, this,
             &Button::onMouseEffectTimeout);
 
     this->effectTimer_.setInterval(20);
@@ -270,10 +270,10 @@ void Button::mouseReleaseEvent(QMouseEvent *event)
     {
         if (event->button() == Qt::LeftButton)
         {
-            leftClicked();
+            this->leftClicked();
         }
 
-        clicked(event->button());
+        this->clicked(event->button());
     }
 }
 
@@ -296,7 +296,7 @@ void Button::onMouseEffectTimeout()
 {
     bool performUpdate = false;
 
-    if (mouseOver_)
+    if (this->mouseOver_)
     {
         if (this->hoverMultiplier_ != 1)
         {
@@ -337,7 +337,7 @@ void Button::onMouseEffectTimeout()
 
     if (performUpdate)
     {
-        update();
+        this->update();
     }
 }
 
@@ -438,7 +438,7 @@ void Button::fancyPaint(QPainter &painter)
 
     if (this->hoverMultiplier_ > 0)
     {
-        QRadialGradient gradient(QPointF(mousePos_),
+        QRadialGradient gradient(QPointF(this->mousePos_),
                                  static_cast<qreal>(this->width()) / 2.0);
 
         gradient.setColorAt(0, QColor(c.red(), c.green(), c.blue(),
@@ -455,8 +455,8 @@ void Button::fancyPaint(QPainter &painter)
         painter.setBrush(QColor(c.red(), c.green(), c.blue(),
                                 int((1 - effect.progress) * 95)));
         painter.drawEllipse(QPointF(effect.position),
-                            effect.progress * qreal(width()) * 2,
-                            effect.progress * qreal(width()) * 2);
+                            effect.progress * qreal(this->width()) * 2,
+                            effect.progress * qreal(this->width()) * 2);
     }
 }
 

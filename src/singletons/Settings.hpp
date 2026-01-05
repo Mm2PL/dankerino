@@ -359,6 +359,15 @@ public:
         false,
     };
 
+    BoolSetting enableSpellChecking = {
+        "/behaviour/spellChecking/enabled",
+        false,
+    };
+    QStringSetting spellCheckingFallback = {
+        "/behaviour/spellChecking/systemFallback",
+        "",
+    };
+
     FloatSetting pauseOnHoverDuration = {"/behaviour/pauseOnHoverDuration", 0};
     EnumSetting<Qt::KeyboardModifier> pauseChatModifier = {
         "/behaviour/pauseChatModifier", Qt::KeyboardModifier::NoModifier};

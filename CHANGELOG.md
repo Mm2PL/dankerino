@@ -26,7 +26,9 @@
 - Minor: Added support for BetterTTV Pro subscriber badges. (#6625)
 - Minor: Added `debug.traceback` for plugins. (#6652)
 - Minor: Added title and duration options for `/clip` command. (#6669)
+- Minor: Added the ability to filter on messages by the author's external badges (example: `author.external_badges contains "chatterino:Top Donator"` or `author.external_badges contains "frankerfacez:bot"`). (#6709)
 - Minor: Added Markdown support to user notes. (#6490)
+- Minor: Moderators and VIPs in shared chats now show their channel badges. (#6653)
 - Bugfix: Moderation checks now include the lead moderator badge. (#6642)
 - Bugfix: Fixed lead moderator badges not being filtered by the `Channel` badge setting. (#6665)
 - Bugfix: Expose the "Extra extension IDs" setting on non-Windows systems too. (#6509)
@@ -44,6 +46,7 @@
 - Bugfix: Added `desktop-entry` hint to Linux notifications. (#6615)
 - Bugfix: Fixed <kbd>CMD</kbd> + <kbd>DELETE</kbd> behavior in the user notes editing dialog for macOS. (#6676)
 - Bugfix: Fixed a potential crash when closing Chatterino with a slow network connection. (#6645)
+- Bugfix: Disable "Sort Tabs Alphabetically" action when notebook layout is locked. (#6710)
 - Dev: Update release documentation. (#6498)
 - Dev: Make code sanitizers opt in with the `CHATTERINO_SANITIZER_SUPPORT` CMake option. After that's enabled, use the `SANITIZE_*` flag to enable individual sanitizers. (#6493)
 - Dev: Remove unused QTextCodec includes. (#6487)
@@ -77,12 +80,15 @@
 - Dev: Unwrapped `LimitedQueueSnapshot` to `std::vector`. (#6606)
 - Dev: Simplified uses of `getMessageSnapshot`. (#6607)
 - Dev: Disabled `llvm-prefer-static-over-anonymous-namespace` in clang-tidy. (#6610)
+- Dev: Added experimental spell checker support. (#6446, #6703)
 - Dev: Added Clazy linting in CI. (#6623)
 - Dev: Added custom clang-tidy module linting in CI. (#6626)
 - Dev: CMake option `USE_ALTERNATE_LINKER` now errors if the given linker can't be found. (#6692)
 - Dev: Enable C++ 23. (#6693)
 - Dev: Prefer `std::expected` over `nonstd::expected_lite`. (#6693)
 - Dev: Moved Twitch PubSub to liveupdates. (#6638)
+- Dev: Refactored types used for emoji parsing. (#6714)
+- Dev: `LinkParser` now parses `QStringView`s. (#6715)
 
 ## 2.5.4
 

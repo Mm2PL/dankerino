@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2016 Contributors to Chatterino <https://chatterino.com>
+//
+// SPDX-License-Identifier: MIT
+
 #include "widgets/splits/Split.hpp"
 
 #include "Application.hpp"
@@ -848,6 +852,11 @@ void Split::setChannel(IndirectChannel newChannel)
         this->roomModeChangedConnection_ = tc->roomModesChanged.connect([this] {
             this->header_->updateRoomModes();
         });
+
+        this->channelSignalHolder_.managedConnect(
+            tc->sendWaitUpdate, [this](const QString &text) {
+                this->getInput().setSendWaitStatus(text);
+            });
     }
 
     this->indirectChannelChangedConnection_ =
@@ -1259,19 +1268,6 @@ void Split::showSearch(bool singleChannel)
     }
 
     popup->show();
-}
-
-void Split::reloadChannelAndSubscriberEmotes()
-{
-    auto channel = this->getChannel();
-
-    if (auto *twitchChannel = dynamic_cast<TwitchChannel *>(channel.get()))
-    {
-        twitchChannel->refreshTwitchChannelEmotes(true);
-        twitchChannel->refreshBTTVChannelEmotes(true);
-        twitchChannel->refreshFFZChannelEmotes(true);
-        twitchChannel->refreshSevenTVChannelEmotes(true);
-    }
 }
 
 void Split::reconnect()

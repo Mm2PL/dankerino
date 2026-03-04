@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 Contributors to Chatterino <https://chatterino.com>
+//
+// SPDX-License-Identifier: MIT
+
 #include "widgets/settingspages/ExternalToolsPage.hpp"
 
 #include "controllers/spellcheck/SpellChecker.hpp"
@@ -244,14 +248,24 @@ void ExternalToolsPage::initLayout(GeneralPageView &layout)
             "dictionaries in " %
             formatRichNamedLink(getApp()->getPaths().dictionariesDirectory,
                                 getApp()->getPaths().dictionariesDirectory) %
-            u". The file index.aff has to contain the affixes and "
-            u"index.dic "
-            u"must contain the dictionary (subject to change).");
+            u". Dictionaries are pairs of .aff (affixes) and .dic (dictionary) "
+            u"files.");
 
         SettingWidget::checkbox("Check spelling by default",
                                 s.enableSpellChecking)
             ->setTooltip("Check the spelling of words in the input box of all "
                          "splits by default.")
+            ->addTo(layout);
+        SettingWidget::intInput("Number of suggestions in context menu",
+                                s.nSpellCheckingSuggestions,
+                                {
+                                    .min = -1,
+                                    .max = std::numeric_limits<int>::max(),
+                                })
+            ->setTooltip(
+                "When right clicking any word, show this many suggestions. If "
+                "this is 0, no suggestions will be shown and if it's -1, no "
+                "limit is set.")
             ->addTo(layout);
 
         auto toItem =
@@ -264,14 +278,13 @@ void ExternalToolsPage::initLayout(GeneralPageView &layout)
         std::vector<std::pair<QString, QVariant>> dictList{{"None", ""}};
 
         std::ranges::transform(
-            getApp()->getSpellChecker()->getSystemDictionaries(),
+            getApp()->getSpellChecker()->getAvailableDictionaries(),
             std::back_inserter(dictList), toItem);
 
         if (dictList.size() > 1)
         {
-            SettingWidget::dropdown(
-                "Fallback spellchecking dictionary (requires restart)",
-                s.spellCheckingFallback, dictList)
+            SettingWidget::dropdown("Default dictionary (requires restart)",
+                                    s.spellCheckingDefaultDictionary, dictList)
                 ->addTo(layout);
         }
     }

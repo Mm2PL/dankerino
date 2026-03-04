@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2017 Contributors to Chatterino <https://chatterino.com>
+//
+// SPDX-License-Identifier: MIT
+
 #pragma once
 
 #include "messages/Message.hpp"
@@ -78,6 +82,13 @@ public:
      */
     void setInputText(const QString &newInputText);
 
+    /**
+     * @brief Sets a formatted time to sendWaitStatus
+     *
+     * This method is used to update the text of the timeout and slow mode timer
+     */
+    void setSendWaitStatus(const QString &text) const;
+
     void triggerSelfMessageReceived();
 
     std::optional<bool> checkSpellingOverride() const;
@@ -157,6 +168,7 @@ protected:
         ResizingTextEdit *textEdit;
         QLabel *textEditLength;
         LabelButton *sendButton;
+        QLabel *sendWaitStatus;
         SvgButton *emoteButton;
     } ui_;
 

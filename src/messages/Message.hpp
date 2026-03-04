@@ -1,7 +1,12 @@
+// SPDX-FileCopyrightText: 2017 Contributors to Chatterino <https://chatterino.com>
+//
+// SPDX-License-Identifier: MIT
+
 #pragma once
 
 #include "messages/MessageFlag.hpp"
 #include "providers/twitch/ChannelPointReward.hpp"
+#include "util/DebugCount.hpp"
 #include "util/QStringHash.hpp"
 
 #include <QColor>

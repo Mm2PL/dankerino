@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2017 Contributors to Chatterino <https://chatterino.com>
+//
+// SPDX-License-Identifier: MIT
+
 #include "messages/Message.hpp"
 
 #include "Application.hpp"
@@ -21,12 +25,12 @@ using namespace literals;
 Message::Message()
     : parseTime(QTime::currentTime())
 {
-    DebugCount::increase("messages");
+    DebugCount::increase(DebugObject::Message);
 }
 
 Message::~Message()
 {
-    DebugCount::decrease("messages");
+    DebugCount::decrease(DebugObject::Message);
 }
 
 ScrollbarHighlight Message::getScrollBarHighlight() const

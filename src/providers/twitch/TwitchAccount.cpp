@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2018 Contributors to Chatterino <https://chatterino.com>
+//
+// SPDX-License-Identifier: MIT
+
 #include "providers/twitch/TwitchAccount.hpp"
 
 #include "Application.hpp"
@@ -188,6 +192,16 @@ void TwitchAccount::blockUserLocally(const QString &userID,
     this->ignores_.insert(blockedUser);
     this->ignoresUserIds_.insert(blockedUser.id);
     this->ignoresUserLogins_.insert(blockedUser.name);
+}
+
+bool TwitchAccount::setUserName(const QString &newUserName)
+{
+    if (this->userName_.compare(newUserName, Qt::CaseInsensitive) == 0)
+    {
+        return false;
+    }
+    this->userName_ = newUserName;
+    return true;
 }
 
 const std::unordered_set<TwitchUser> &TwitchAccount::blocks() const

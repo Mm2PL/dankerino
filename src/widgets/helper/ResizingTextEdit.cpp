@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2017 Contributors to Chatterino <https://chatterino.com>
+//
+// SPDX-License-Identifier: MIT
+
 #include "widgets/helper/ResizingTextEdit.hpp"
 
 #include "common/Common.hpp"
@@ -287,8 +291,8 @@ void ResizingTextEdit::insertCompletion(const QString &completion)
     }
 
     QTextCursor tc = this->textCursor();
-    tc.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor,
-                    prefixSize);
+    int completionStart = tc.position() - prefixSize;
+    tc.setPosition(completionStart, QTextCursor::KeepAnchor);
     tc.insertText(completion);
     this->setTextCursor(tc);
     this->updateGeometry();

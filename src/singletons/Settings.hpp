@@ -823,11 +823,18 @@ public:
                                             false};
     QStringSetting bridgeUser = {"/misc/bridgeUser", "supabridge"};
 
-    // Advanced
+    // Sound
     EnumStringSetting<SoundBackend> soundBackend = {
         "/sound/backend",
         SoundBackend::Miniaudio,
     };
+
+    BoolSetting soundMiniaudioKeepEngineAlive = {
+        "/sound/miniaudio/keepEngineAlive",
+        false,
+    };
+
+    // Advanced
     BoolSetting enableExperimentalEventSub = {
         "/eventsub/enableExperimental",
         true,

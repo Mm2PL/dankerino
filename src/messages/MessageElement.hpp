@@ -219,6 +219,8 @@ public:
     void addToContainer(MessageLayoutContainer &container,
                         const MessageLayoutContext &ctx) override;
 
+    ImagePtr image() const;
+
     QJsonObject toJson() const override;
     std::string_view type() const override;
 
@@ -240,6 +242,11 @@ public:
 
     QJsonObject toJson() const override;
     std::string_view type() const override;
+
+    ImagePtr image() const
+    {
+        return this->image_;
+    }
 
     int padding() const
     {
@@ -665,6 +672,8 @@ public:
 
     void addToContainer(MessageLayoutContainer &container,
                         const MessageLayoutContext &ctx) override;
+
+    const ImageSet &images() const;
 
     QJsonObject toJson() const override;
     std::string_view type() const override;

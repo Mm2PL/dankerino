@@ -395,7 +395,7 @@ void GeneralPage::initLayout(GeneralPageView &layout)
         "Message overflow", {"Highlight", "Prevent", "Allow"},
         s.messageOverflow,
         [](auto index) {
-            return index;
+            return static_cast<int>(index);
         },
         [](auto args) {
             return static_cast<MessageOverflow>(args.index);
@@ -412,7 +412,7 @@ void GeneralPage::initLayout(GeneralPageView &layout)
         },
         s.usernameRightClickBehavior,
         [](auto index) {
-            return index;
+            return static_cast<int>(index);
         },
         [](auto args) {
             return static_cast<UsernameRightClickBehavior>(args.index);
@@ -429,7 +429,7 @@ void GeneralPage::initLayout(GeneralPageView &layout)
         },
         s.usernameRightClickModifierBehavior,
         [](auto index) {
-            return index;
+            return static_cast<int>(index);
         },
         [](auto args) {
             return static_cast<UsernameRightClickBehavior>(args.index);
@@ -513,6 +513,10 @@ void GeneralPage::initLayout(GeneralPageView &layout)
     SettingWidget::checkbox("Hide deleted messages", s.hideModerated)
         ->setTooltip(
             "When enabled, messages deleted by moderators will be hidden.")
+        ->addTo(layout);
+
+    SettingWidget::checkbox("Hide message timestamps when channel is live",
+                            s.hideMessageTimestampsWhenLive)
         ->addTo(layout);
 
     layout.addDropdown<QString>(
@@ -750,6 +754,10 @@ void GeneralPage::initLayout(GeneralPageView &layout)
             "Hide blocked terms from showing up in places like AutoMod "
             "messages. This can be useful in case you have some blocked terms "
             "that you don't want to show on stream.")
+        ->addTo(layout);
+
+    SettingWidget::checkbox("Hide user notes", s.streamerModeHideUserNotes)
+        ->setTooltip("Hide user notes from showing in usercards.")
         ->addTo(layout);
 
     SettingWidget::checkbox("Mute mention sounds", s.streamerModeMuteMentions)

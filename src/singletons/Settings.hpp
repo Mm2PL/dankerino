@@ -877,8 +877,8 @@ public:
     BoolSetting normalNonceDetection = {"/misc/normalNonceDetection", false};
     BoolSetting nonceFuckeryEnabled = {"/misc/nonceFuckeryEnabled", false};
     QStringSetting webchatColor = {"/misc/webchatColor", "#3FFFA30B"};
-    QStringSetting androidColor = {"/misc/androidNewColor", "#3F25D300"};
-    QStringSetting androidNewColor = {"/misc/androidColor", "#3F25D300"};
+    QStringSetting androidColor = {"/misc/androidColor", "#3F25D300"};
+    QStringSetting androidNewColor = {"/misc/androidNewColor", "#3F25D300"};
     QStringSetting iosColor = {"/misc/iosColor", "#3FFF69B4"};
 
     BoolSetting dankerinoThreeLetterApiEasterEgg = {
